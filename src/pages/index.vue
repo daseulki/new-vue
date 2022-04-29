@@ -10,7 +10,5 @@ export default {
 }
 </script>
 <style >
-    .alert.toast-box{
-        z-index:999
-    }
+
 </style>

@@ -7,7 +7,7 @@
 
 
       <button class="btn btn-primary"
-      @click="goToCreate">Create</button>
+      @click="goToCreate">생성</button>
     </div>
     <input type="text" class="form-control" 
     v-model="searchText" placeholder="Search"
@@ -37,7 +37,7 @@
     </nav>
   </div>
         <Toast 
-            v-if="showToast"
+            v-show="showToast"
             :message="toastMessage"
             :type="toastAlertType"
         />
@@ -96,7 +96,6 @@
       const getTodo = async (page = curPage.value) => {
         //curPage.value = page;
         try {
-          console.log(page)
           const res = await axios.get(
             `http://localhost:3000/todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${page}&_limit=${limit}`
             )

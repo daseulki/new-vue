@@ -41,11 +41,14 @@
             @click="goTodoListPage">
                 취소</button>
         </form>
+        <teleport to="#modal">
         <Toast 
-            v-if="showToast"
+            v-show="showToast"
             :message="toastMessage"
             :type="toastAlertType"
-        />
+        >
+        </Toast>
+        </teleport>
     </div>
 </template>
 
@@ -125,7 +128,7 @@ export default {
             })
         }
 
-        const triggerToast = (message, type = 'success') => {
+        const triggerToast = (message, type) => {
           showToast.value = true;
           toastAlertType.value=type;
           toastMessage.value=message;
@@ -156,16 +159,16 @@ export default {
                 if(props.editing){
                     res = await axios.put(`http://localhost:3000/todos/${todoId}`,data)
                     originalTodo.value = {...res.data}
-                    triggerToast('잘 저장되었단다')
+                    triggerToast('잘 저장되었단다','success')
                 } else { 
                     res = await axios.post(`http://localhost:3000/todos`,data)
-                    triggerToast('잘 생성되었단다')
+                    triggerToast('잘 생성되었단다','success')
 
                 }
                
-                router.push({
-                    name: 'Todos',
-                })
+                // router.push({
+                //     name: 'Todos',
+                // })
 
             } catch(err){
                 console.error(err)
