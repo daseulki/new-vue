@@ -55,7 +55,7 @@
   } from 'vue'
   // import TodoSimpleForm from '@/components/TodoSimpleForm.vue'
   import TodoList from '@/components/TodoList.vue'
-  import axios from 'axios'
+  import axios from '@/axios'
   import Toast from '@/components/Toast.vue';
   import { useToast } from '@/composables/toast';
   import { useRouter } from 'vue-router'
@@ -96,8 +96,7 @@
       const getTodo = async (page = curPage.value) => {
         //curPage.value = page;
         try {
-          const res = await axios.get(
-            `http://localhost:3000/todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${page}&_limit=${limit}`
+          const res = await axios.get(`todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${page}&_limit=${limit}`
             )
           todos.value = res.data;
           numOfTodos.value = res.headers['x-total-count'];
@@ -111,7 +110,7 @@
 
       const addTodo = async (todo) => {
         try {
-          const res = await axios.post('http://localhost:3000/todos', {
+          const res = await axios.post('todos', {
             subject: todo.subject,
             completed: todo.completed,
           })
@@ -127,7 +126,7 @@
       const deleteTodo = async (index) => {
         const id = todos.value[index].id;
         try {
-          await axios.delete('http://localhost:3000/todos/' + id)
+          await axios.delete('todos/' + id)
 
           getTodo(1);
 
@@ -145,7 +144,7 @@
       const toggleTodo = async (index, checked) => {
         const id = todos.value[index].id;
         try {
-          await axios.patch('http://localhost:3000/todos/' + id, {
+          await axios.patch('todos/' + id, {
             //completed: !todos.value[index].completed
             completed: checked
           })

@@ -55,7 +55,7 @@
 <script>
 import { ref, computed } from '@vue/reactivity';
 import { useRoute,useRouter } from 'vue-router'
-import axios from 'axios'
+import axios from '@/axios'
 import _ from 'lodash'
 import Toast from '@/components/Toast.vue';
 
@@ -91,7 +91,7 @@ export default {
         const getTodo = async() => {
             try { 
                 loading.value = true
-                const res = await axios.get('http://localhost:3000/todos/'+ todoId);
+                const res = await axios.get('todos/'+ todoId);
 
                 todo.value = { ...res.data };
                 originalTodo.value = { ...res.data };
@@ -157,11 +157,11 @@ export default {
                 }
 
                 if(props.editing){
-                    res = await axios.put(`http://localhost:3000/todos/${todoId}`,data)
+                    res = await axios.put(`todos/${todoId}`,data)
                     originalTodo.value = {...res.data}
                     triggerToast('잘 저장되었단다','success')
                 } else { 
-                    res = await axios.post(`http://localhost:3000/todos`,data)
+                    res = await axios.post('todos',data)
                     triggerToast('잘 생성되었단다','success')
 
                 }

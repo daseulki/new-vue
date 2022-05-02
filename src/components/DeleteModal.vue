@@ -1,17 +1,17 @@
 <template>
     <div>
-        <Modal>
-             <template v-slot:title>
+        <Modal @close = 'onClose'>
+            <template v-slot:title>
                 한번 더 기회를 드립니다..
             </template>
             <template v-slot:body>
                 <p>정말로 삭제할거야??</p>
             </template>
             <template v-slot:footer>
-              <button type="button" class="btn btn-primary"
+                <button type="button" class="btn btn-primary"
                     @click = "deleteTodo">지워버려!</button>
                     <button type="button" class="btn btn-secondary" 
-                     @click ="closeModal">아니..</button>
+                     @click ="onClose">아니..</button>
             
             </template>
         </Modal>
@@ -29,12 +29,12 @@ export default {
         const deleteTodo = () => {
             emit('delete');
         }
-        const closeModal = () => {
+        const onClose = () => {
             emit('close');
         }
 
         return {
-            closeModal,
+            onClose,
             deleteTodo
         }
     },

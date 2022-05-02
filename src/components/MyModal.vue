@@ -7,19 +7,17 @@
                         <h5 class="modal-title">
                             <slot name="title">
                             </slot>
-
                         </h5>
-                        <button type="button" class="btn-close" @click="closeModal"></button>
+                        <button type="button" class="btn-close" 
+                        @click="onClose"></button>
                     </div>
                     <div class="modal-body">
                         <slot name="body">
                         </slot>
-
                     </div>
                     <div class="modal-footer">
                         <slot name="footer">
                         </slot>
-
                     </div>
                 </div>
             </div>
@@ -29,7 +27,16 @@
 
 <script>
     export default {
-
+    emits:['close-modal'],
+        setup(props, {emit}) {
+            const onClose = () => {
+                emit('close');
+            }
+            return {
+                onClose,
+                
+            }
+        },
     }
 </script>
 <style scoped>
