@@ -41,14 +41,14 @@
             @click="goTodoListPage">
                 취소</button>
         </form>
-        <teleport to="#modal">
+        <!-- <teleport to="#modal">
         <Toast 
             v-show="showToast"
             :message="toastMessage"
             :type="toastAlertType"
         >
         </Toast>
-        </teleport>
+        </teleport> -->
     </div>
 </template>
 
@@ -57,11 +57,12 @@ import { ref, computed } from '@vue/reactivity';
 import { useRoute,useRouter } from 'vue-router'
 import axios from '@/axios'
 import _ from 'lodash'
-import Toast from '@/components/Toast.vue';
+// import Toast from "@/components/Toast.vue"
+import { useToast }  from "@/composables/toast"
 
 export default {
     components: {
-        Toast,
+        //Toast,
     },
     props:{
         editing : {
@@ -81,9 +82,12 @@ export default {
         const originalTodo = ref(null);
         const loading = ref(false);
 
-        const showToast = ref(false);
-        const toastMessage = ref('');
-        const toastAlertType = ref('');
+        const {
+            showToast,
+            toastMessage,
+            toastAlertType,
+            triggerToast,
+        } = useToast();
             
         const todoId = route.params.id;
 
@@ -128,19 +132,7 @@ export default {
             })
         }
 
-        const triggerToast = (message, type) => {
-          showToast.value = true;
-          toastAlertType.value=type;
-          toastMessage.value=message;
 
-          setTimeout(() => {
-
-            toastMessage.value='';
-            showToast.value= false;
-            toastAlertType.value='';
-            
-          }, 3000)
-        };
         if(props.editing){
             getTodo();
             
@@ -165,10 +157,12 @@ export default {
                     triggerToast('잘 생성되었단다','success')
 
                 }
-               
-                // router.push({
-                //     name: 'Todos',
-                // })
+               if(!props.editing) {
+                router.push({
+                    name: 'Todos',
+                })
+               }
+                
 
             } catch(err){
                 console.error(err)

@@ -1,12 +1,14 @@
 <template>
     <div>
-        <div
-            class="alert toast-box"
-            :class="`alert-${type}`" 
-            role="alert"
-        >
-            {{ message }}
-        </div>
+        <transition name="fade">
+            <div
+                class="alert toast-box"
+                :class="`alert-${type}`" 
+                role="alert"
+            >
+                {{ message }}
+            </div>
+        </transition>
     </div>
 </template>
 

@@ -36,11 +36,11 @@
       </ul>
     </nav>
   </div>
-        <Toast 
+        <!-- <Toast 
             v-show="showToast"
             :message="toastMessage"
             :type="toastAlertType"
-        />
+        /> -->
 
 </div>
 
@@ -56,7 +56,7 @@
   // import TodoSimpleForm from '@/components/TodoSimpleForm.vue'
   import TodoList from '@/components/TodoList.vue'
   import axios from '@/axios'
-  import Toast from '@/components/Toast.vue';
+  // import Toast from '@/components/Toast.vue';
   import { useToast } from '@/composables/toast';
   import { useRouter } from 'vue-router'
 
@@ -66,7 +66,7 @@
     components: {
       // TodoSimpleForm,
       TodoList,
-      Toast
+      // Toast
 
     },
     setup() {
@@ -219,7 +219,7 @@
         filteredTodos,
         numOfPages,
         curPage,
-        Toast,
+        // Toast,
         showToast,
         toastMessage,
         toastAlertType,

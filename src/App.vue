@@ -16,10 +16,61 @@
         </router-view>
     </div>
         
-
+    <Toast            
+      v-show="showToast"
+      :message="toastMessage"
+      :type="toastAlertType"
+      >
+    </Toast>
   </div>
 </template>
 
 <script>
-  export default {}
+  import Toast from "@/components/Toast.vue"
+  import { useToast } from "@/composables/toast"
+
+  export default {
+    components:{
+      Toast
+    },
+    setup(){
+
+      const {
+        showToast,
+        toastMessage,
+        toastAlertType,
+        triggerToast,
+      } = useToast();
+
+        return{
+          showToast,
+          toastMessage,
+          toastAlertType,
+          triggerToast,
+        }
+    }
+  }
 </script>
+<style scoped>
+    .toast-box {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index:9999
+    }
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: all 0.5s ease;
+    }
+    .fade-enter-from,
+    .fade-leave-to{
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    .fade-enter-to,
+    .fade-leave-from{
+        opacity: 1;
+        transform: translateY(0px);
+
+    } 
+</style>
