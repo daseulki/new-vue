@@ -83,9 +83,7 @@ export default {
         const loading = ref(false);
 
         const {
-            showToast,
-            toastMessage,
-            toastAlertType,
+
             triggerToast,
         } = useToast();
             
@@ -179,10 +177,8 @@ export default {
             onSave,
             todoUpdated,
             todoEmpty,
-            showToast,
             triggerToast,
-            toastMessage,
-            toastAlertType,
+
         }
     }
 }

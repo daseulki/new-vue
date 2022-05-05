@@ -1,33 +1,30 @@
 <template>
-    <div>
-        <transition name="fade">
-            <div
-                class="alert toast-box"
-                :class="`alert-${type}`" 
-                role="alert"
-            >
-                {{ message }}
-            </div>
-        </transition>
+    <div class="toast-box">
+        <transition-group name="fade">
+        <div v-for="(toast, id) in toasts" :key="id" 
+            class="alert"
+            :class="`alert-${toast.type}`" 
+            role="alert"
+        >
+            {{ toast.message }}
+        </div>
+        </transition-group>
     </div>
 </template>
 
 <script>
+import { useToast }  from "@/composables/toast"
 export default {
-    props: {
-        message: {
-            type: String,
-            required: true
-        },
-        type: {
-            type: String,
-            default: 'success'
+    setup(){
+        const { toasts } = useToast()
+        return {
+            toasts
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
     .toast-box {
         position: fixed;
         top: 10px;
@@ -49,5 +46,4 @@ export default {
         transform: translateY(0px);
 
     } 
-    
 </style>

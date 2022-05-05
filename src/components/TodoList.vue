@@ -34,6 +34,7 @@
     } from '@vue/reactivity';
     import Modal from "@/components/DeleteModal.vue"
     import List from "@/components/List.vue"
+    import { useToast }  from "@/composables/toast"
 
     export default {
         props: {
@@ -60,6 +61,7 @@
             }
             const deleteTodo = () => {
                 emit('delete-todo', wantDeleteId.value);
+                triggerToast('삭제됐단다','danger');
                 closeModal()
             }
             const showDelete = (index) => {
@@ -86,6 +88,10 @@
 
             };
 
+            const {
+                triggerToast,
+            } = useToast();
+
             return {
                 toggleTodo,
                 deleteTodo,
@@ -94,7 +100,7 @@
                 closeModal,
                 showDelete,
                 isDelete,
-
+                triggerToast,
 
             }
         },
